@@ -1,0 +1,479 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Player guide | Claimora</title><link rel="canonical" href="https://korosensei4014-commits.github.io/Claimora-docs/players/"/><link rel="sitemap" href="/Claimora-docs/sitemap-index.xml"/><link rel="shortcut icon" href="/Claimora-docs/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.4.8"/><meta name="generator" content="Starlight v0.39.3"/><meta property="og:title" content="Player guide"/><meta property="og:type" content="article"/><meta property="og:url" content="https://korosensei4014-commits.github.io/Claimora-docs/players/"/><meta property="og:locale" content="en"/><meta property="og:description" content="How to claim land, trust friends and use the claim menu."/><meta property="og:site_name" content="Claimora"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="How to claim land, trust friends and use the claim menu."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/Claimora-docs/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/Claimora-docs/_astro/common.DIN4SM-M.css"><script type="module" src="/Claimora-docs/_astro/page.B_tncCx8.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/Claimora-docs/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> Claimora </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"> <button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/Claimora-docs/_astro/Search.astro_astro_type_script_index_0_lang.D3wVI7mi.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="10oisud" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/Claimora-docs/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Home</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/players/" aria-current="page" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Player guide</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/server-owners/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Server owner guide</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/developers/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Developer API</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/changelog/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Changelog</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#your-first-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Your first claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-blocks" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#what-a-claim-protects" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">What a claim protects</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#trusting-friends" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Trusting friends</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#the-claim-menu" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">The claim menu</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#resizing-a-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Resizing a claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#subclaims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Subclaims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-options" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim options</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-fly" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim Fly</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#naming-and-renaming" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Naming and renaming</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#teleporting-to-your-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Teleporting to your claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#giving-a-claim-away" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Giving a claim away</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#abandoning-a-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Abandoning a claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#stuck-in-someones-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Stuck in someone’s claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#banning-players" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Banning players</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#border-colours" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Border colours</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-players" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock players</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#all-commands" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">All commands</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#faq" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">FAQ</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/Claimora-docs/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#your-first-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Your first claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-blocks" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#what-a-claim-protects" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">What a claim protects</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#trusting-friends" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Trusting friends</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#the-claim-menu" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">The claim menu</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#resizing-a-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Resizing a claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#subclaims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Subclaims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-options" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim options</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-fly" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim Fly</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#naming-and-renaming" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Naming and renaming</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#teleporting-to-your-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Teleporting to your claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#giving-a-claim-away" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Giving a claim away</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#abandoning-a-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Abandoning a claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#stuck-in-someones-claim" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Stuck in someone’s claim</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#banning-players" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Banning players</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#border-colours" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Border colours</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-players" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock players</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#all-commands" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">All commands</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#faq" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">FAQ</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/Claimora-docs/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="en" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Player guide</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>Claimora protects your builds. You mark out a rectangle of land with the <strong>Claim Wand</strong>, and
+nobody else can break, build or open things there unless you trust them.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="your-first-claim">Your first claim</h2><a class="sl-anchor-link" href="#your-first-claim"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Your first claim”</span></a></div>
+<ol>
+<li><strong>Get the wand.</strong> New players get it on their first join. Lost it? Type <code dir="auto">/claim</code>.</li>
+<li><strong>Hold it.</strong> Claims near you light up with coloured borders, and the action bar shows how many
+claim blocks you have.</li>
+<li><strong>Right-click a block</strong> for the first corner.</li>
+<li><strong>Look around.</strong> The border follows your crosshair, and the action bar shows the size and cost.</li>
+<li><strong>Right-click the opposite corner</strong>, then <strong>right-click once more</strong> to confirm.</li>
+</ol>
+<p>Left-click goes back a step if you change your mind.</p>
+<blockquote>
+<p><strong>In a hurry?</strong> <code dir="auto">/claim auto</code> claims a square around you in one go (11 × 11 by default).</p>
+</blockquote>
+<p>Claims always cover the whole height of the world, from bedrock to the sky. You only choose the
+two corners.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-blocks">Claim blocks</h2><a class="sl-anchor-link" href="#claim-blocks"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim blocks”</span></a></div>
+<p>Land costs <strong>claim blocks</strong>: one block per square of ground. A 20 × 25 claim costs 500.</p>
+<ul>
+<li>Everyone starts with <strong>100</strong>.</li>
+<li>You earn <strong>100 more for every hour you actively play</strong> (standing AFK doesn’t count).</li>
+<li>Abandoning a claim gives its blocks back.</li>
+<li>Subclaims are free, because they’re inside land you already paid for.</li>
+</ul>
+<p>See your balance with <code dir="auto">/claim list</code>, in <code dir="auto">/claim menu</code>, or on the action bar while holding the wand.</p>
+<p><strong>Buying blocks:</strong> if your server has an economy, <code dir="auto">/claim buy</code> (or <strong>Buy claim blocks</strong> in
+<code dir="auto">/claim menu</code>) lets you buy more, for example <code dir="auto">/claim buy 500</code>. You see the price and confirm first.
+You see your money, the price and what you’ll have afterwards before you confirm. Bought blocks are
+yours for good.</p>
+<p><em>(These are the default numbers. Your server may have changed them.)</em></p>
+<div class="sl-heading-wrapper level-h2"><h2 id="what-a-claim-protects">What a claim protects</h2><a class="sl-anchor-link" href="#what-a-claim-protects"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “What a claim protects”</span></a></div>
+<p>Inside your claim, players you haven’t trusted <strong>can’t</strong>:</p>
+<ul>
+<li>break or place blocks, use buckets, or edit signs</li>
+<li>open chests, barrels, furnaces and other containers</li>
+<li>use doors, trapdoors, gates, buttons, levers or pressure plates</li>
+<li>hurt animals, or break item frames, paintings, armor stands or vehicles</li>
+</ul>
+<p>Claims also stop explosions, fire spread, and pistons, water or lava pushing in from outside.
+Crafting tables and ender chests stay usable by everyone, and villager trading is allowed (your
+server can change both).</p>
+<p>If you try to build somewhere you can’t, the claim’s border flashes so you can see whose land it is.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="trusting-friends">Trusting friends</h2><a class="sl-anchor-link" href="#trusting-friends"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Trusting friends”</span></a></div>
+<p>Stand in your claim and:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/trust</code></td>
+<td>Pick an online player from a list, then pick their level</td>
+</tr>
+<tr>
+<td><code dir="auto">/trust &#x3C;player></code></td>
+<td>Trust someone at <strong>Build</strong>, even if they’re offline</td>
+</tr>
+<tr>
+<td><code dir="auto">/trust &#x3C;player> &#x3C;level></code></td>
+<td>Trust someone at a level: <code dir="auto">guest</code>, <code dir="auto">containers</code>, <code dir="auto">build</code> or <code dir="auto">manager</code></td>
+</tr>
+<tr>
+<td><code dir="auto">/untrust &#x3C;player></code></td>
+<td>Remove them</td>
+</tr>
+<tr>
+<td><code dir="auto">/trustlist</code></td>
+<td>See who’s trusted and at which level. Tap someone to change their level or remove them.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Levels</strong> (each one includes everything above it):</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>They can</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Guest</strong></td>
+<td>Use doors, trapdoors, gates, buttons, levers, pressure plates, beds and bells, and ride vehicles</td>
+</tr>
+<tr>
+<td><strong>Containers</strong></td>
+<td>Guest, plus open chests and other storage, look after animals (feed, breed, shear, milk) and farm: harvest ripe crops and replant them</td>
+</tr>
+<tr>
+<td><strong>Build</strong></td>
+<td>Containers, plus break and place anything</td>
+</tr>
+<tr>
+<td><strong>Manager</strong></td>
+<td>Build, plus trust and untrust other players (up to Build)</td>
+</tr>
+</tbody>
+</table>
+<p>Only you, the owner, can resize, rename, change options, give away or abandon the claim. Managers
+can’t make or remove other Managers.</p>
+<p>Trusted players at every level can teleport to and Claim-Fly in your claim, unless the server
+requires a higher level.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-claim-menu">The claim menu</h2><a class="sl-anchor-link" href="#the-claim-menu"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “The claim menu”</span></a></div>
+<p><code dir="auto">/claim menu</code> opens a menu (a form on Bedrock) with:</p>
+<ul>
+<li><strong>Your claims</strong>: pick one to <strong>Teleport</strong> or <strong>Manage</strong> it</li>
+<li><strong>Trusted claims</strong>: claims other players trusted you in</li>
+<li><strong>Help</strong></li>
+</ul>
+<p><strong>Manage</strong> lets you change trusted players, subclaims, the name and the home point, give the claim
+away, or abandon it, all without walking there.</p>
+<p>If the server has Claimora’s <strong>Bedrock-style menus</strong> and you accepted the resource pack, <code dir="auto">/claim menu</code> looks
+like Bedrock’s own menus on Java too: a banner with your blocks left, rows for Your claims, Trusted claims, Buy
+blocks and Help, and a <strong>Get claim wand</strong> button. Each claim has its own page with Teleport, Set home here,
+Rename, switches for its options (they save straight away), Trusted players, Banned players, Subclaims, Transfer
+and Abandon. Trust levels, buying blocks (a slider), bans, renaming and the confirmations use the same style.
+Rename and “ban an offline player” use Minecraft’s own text box under the page. Long lists (many claims or
+players) have <strong>&#x3C; Previous</strong> and <strong>Next ></strong> buttons at the bottom.</p>
+<p>Bedrock players, and Java players without the pack, see the normal menus with the same options.</p>
+<p>The normal menu (without the Bedrock-style menus, or on Bedrock) now also has <strong>Get claim wand</strong>, and its <strong>Buy claim
+blocks</strong> screen has a slider for any amount, with the usual pack buttons below it.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="resizing-a-claim">Resizing a claim</h2><a class="sl-anchor-link" href="#resizing-a-claim"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Resizing a claim”</span></a></div>
+<p>Hold the wand, <strong>right-click a corner</strong> of your claim (the border shows where the corners are),
+move to the new spot, and right-click again. Growing a claim costs the extra blocks. Shrinking it
+gives blocks back.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="subclaims">Subclaims</h2><a class="sl-anchor-link" href="#subclaims"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Subclaims”</span></a></div>
+<p>A subclaim is a smaller area inside your claim with its <strong>own trust list</strong>. For example, a storage
+room only some friends can open.</p>
+<ul>
+<li>Hold the wand and <strong>right-click inside your claim</strong> to start one, then pick the corners as usual.</li>
+<li>Subclaims are <strong>private</strong>: only you and the players trusted <em>in that subclaim</em> can build there.
+Players trusted in the main claim can’t, unless you trust them in the subclaim too.</li>
+<li>Stand inside a subclaim and use <code dir="auto">/trust</code> to manage its list.</li>
+<li>Subclaims have yellow borders.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-options">Claim options</h2><a class="sl-anchor-link" href="#claim-options"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim options”</span></a></div>
+<p>Each claim has a few settings you can change: <code dir="auto">/claim options</code> while standing in it, or
+<strong>Manage → Options</strong> in <code dir="auto">/claim menu</code>. Tap a setting to switch it.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Crop trampling</strong></td>
+<td><em>Blocked</em>: nobody can trample farmland in the claim, not even you or your trusted players. (Mobs and strangers can never trample your crops anyway.)</td>
+</tr>
+<tr>
+<td><strong>Hostile mobs</strong></td>
+<td><em>Don’t spawn</em>: zombies, skeletons, creepers and other hostile mobs stop spawning naturally in the claim. Mob spawners still work, and mobs can still walk in from outside.</td>
+</tr>
+<tr>
+<td><strong>PvP</strong></td>
+<td><em>Off</em>: players can’t hurt each other in the claim, including with arrows and harmful potions.</td>
+</tr>
+<tr>
+<td><strong>Claim Fly</strong></td>
+<td><em>Blocked</em>: nobody can use <code dir="auto">/claimfly</code> in the claim, not even you. Handy if you trust friends to build but don’t want them flying around, or for a parkour subclaim.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Subclaims start with their main claim’s options and keep following it until you change them.
+Stand in a subclaim and use <code dir="auto">/claim options</code> (or <strong>Manage → Options</strong> on the subclaim) and tap a
+setting to switch it just there. Setting it back to match the main claim makes it follow the main
+claim again. For example, block hostile mobs across your
+base but allow them in a “Mob farm” subclaim, or turn PvP off everywhere except an arena subclaim.</li>
+<li>Only the owner can change them. Trusted players can’t.</li>
+<li>Your server may have turned some of these off. They then don’t appear in the menu.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-fly">Claim Fly</h2><a class="sl-anchor-link" href="#claim-fly"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim Fly”</span></a></div>
+<p>If your rank includes it, <code dir="auto">/claimfly</code> (or <code dir="auto">/claim fly</code>) lets you fly inside claims you own or are
+trusted in.</p>
+<ul>
+<li>Type <code dir="auto">/claimfly</code>, then double-jump inside your claim to fly. <code dir="auto">/claimfly</code> again turns it off.</li>
+<li><strong>Daily time:</strong> depending on your rank you get a number of flying minutes per day (or unlimited).
+Only time spent actually flying counts: standing or walking with Claim Fly on is free. The time
+resets every day at the same time (midnight Philippine time by default).</li>
+<li>While you fly, the action bar shows <strong>✈ Claim Fly · 42:17 left</strong>. You get a chat warning at 5 and 1
+minutes left. When your time runs out mid-air you get the same 3-second countdown and a safe fall.</li>
+<li><strong>Leaving the claim while flying:</strong> you get a 3-second countdown (<em>flight ends in 3…</em>). Fly back in
+and you keep flying. Otherwise flight stops and you fall, but <strong>that fall doesn’t hurt</strong>.</li>
+<li><strong>Walking out:</strong> flight pauses and comes back when you walk into an allowed claim again.</li>
+<li><strong>PvP:</strong> hitting another player, or being hit by one, turns Claim Fly off at once (your fall is
+still safe), and you can’t turn it back on for 10 seconds. Mobs don’t count.</li>
+<li><code dir="auto">/claimfly info</code> shows whether it’s on, your rank tier, whether you can fly where you stand, your
+time left today and when it resets.</li>
+<li>Claim owners can block Claim Fly in their claim (see <a href="#claim-options">Claim options</a>).</li>
+</ul>
+<p><em>(Your server decides who gets Claim Fly, whether trusted claims count, and the timings.)</em></p>
+<div class="sl-heading-wrapper level-h2"><h2 id="naming-and-renaming">Naming and renaming</h2><a class="sl-anchor-link" href="#naming-and-renaming"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Naming and renaming”</span></a></div>
+<p>New claims ask for a name (for example “Base”). Skip it and the claim is called “Claim 1”,
+“Claim 2” and so on. Each of your claims needs a different name.</p>
+<ul>
+<li><code dir="auto">/claim rename</code> opens the name box for the claim you’re standing in.</li>
+<li><code dir="auto">/claim rename &#x3C;name></code> renames it straight away.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="teleporting-to-your-claims">Teleporting to your claims</h2><a class="sl-anchor-link" href="#teleporting-to-your-claims"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Teleporting to your claims”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/claim tp</code></td>
+<td>Opens the menu so you can pick a claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim tp Base</code></td>
+<td>Teleports to your claim called “Base”</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim tp Base/Storage</code></td>
+<td>Teleports to the subclaim “Storage” inside “Base”</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim sethome</code></td>
+<td>Sets where you land in the claim you’re standing in</td>
+</tr>
+</tbody>
+</table>
+<p>You stand still for a few seconds while dots fill up in the action bar. Moving or taking damage
+cancels it. After a teleport there’s a short cooldown.</p>
+<p>Without a home point, you land on a safe spot near the middle of the claim. You can also teleport
+to claims you’re trusted in, if the server allows it.</p>
+<p>Some servers turn claim teleport off; then <code dir="auto">/claim tp</code> says so and the Teleport buttons aren’t in the menus.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="giving-a-claim-away">Giving a claim away</h2><a class="sl-anchor-link" href="#giving-a-claim-away"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Giving a claim away”</span></a></div>
+<p>Stand in the claim and type <code dir="auto">/claim transfer &#x3C;player></code>, or use <strong>Manage → Transfer</strong> in the menu.
+The new owner must be online and pays the claim blocks. You get yours back. Trusted players and
+subclaims stay with the claim.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="abandoning-a-claim">Abandoning a claim</h2><a class="sl-anchor-link" href="#abandoning-a-claim"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Abandoning a claim”</span></a></div>
+<p><code dir="auto">/claim abandon</code> (or <strong>Manage → Abandon</strong>) deletes the claim or subclaim you’re standing in, after
+a confirmation. You get its claim blocks back. <strong>This can’t be undone.</strong></p>
+<div class="sl-heading-wrapper level-h2"><h2 id="stuck-in-someones-claim">Stuck in someone’s claim</h2><a class="sl-anchor-link" href="#stuck-in-someones-claim"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Stuck in someone’s claim”</span></a></div>
+<p>If you’re trapped inside another player’s claim and can’t build your way out, type
+<code dir="auto">/claim trapped</code>. Stand still for 10 seconds (moving or getting hurt cancels it) and you’re moved to
+the nearest safe spot just outside the claim. You can use it once an hour. If no safe spot is found
+nearby, nothing happens and you can ask an admin.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="banning-players">Banning players</h2><a class="sl-anchor-link" href="#banning-players"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Banning players”</span></a></div>
+<p>If someone keeps bothering you, ban them from your claim: stand in it and type <code dir="auto">/claim ban &#x3C;player></code>, or open
+<strong>Banned players</strong> on the claim’s page in <code dir="auto">/claim menu</code>.</p>
+<ul>
+<li>A banned player can’t enter the claim or any of its subclaims, by any route: walking, flying, riding, ender
+pearls (they get the pearl back) or teleport commands. Walking into it feels like a wall, with a short message
+and the border shown for a moment. If they’re inside when you ban them, they’re moved just outside.</li>
+<li>Banning someone also removes their trust in that claim and its subclaims. Unbanning doesn’t bring their trust
+back; trust them again if you want.</li>
+<li>Only the claim’s owner can ban. You can’t ban admins.</li>
+<li>A claim can hold up to 50 bans (the server may change this). Offline players can be banned by name.</li>
+<li><code dir="auto">/claim unban &#x3C;player></code> lifts a ban, <code dir="auto">/claim bans</code> lists them. Tapping a name in the menu also unbans.</li>
+</ul>
+<p>Some servers turn bans off; then these commands and the menu row aren’t there.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="border-colours">Border colours</h2><a class="sl-anchor-link" href="#border-colours"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Border colours”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Colour</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green</td>
+<td>Your claim</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Someone else’s claim</td>
+</tr>
+<tr>
+<td>Yellow</td>
+<td>A subclaim</td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>A server (admin) claim, such as spawn</td>
+</tr>
+<tr>
+<td>Light blue</td>
+<td>Your selection, and it’s valid</td>
+</tr>
+<tr>
+<td>Red selection</td>
+<td>Your selection overlaps something or is too small</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="bedrock-players">Bedrock players</h2><a class="sl-anchor-link" href="#bedrock-players"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Bedrock players”</span></a></div>
+<p>Everything works on Bedrock too. Menus and the name box appear as forms. Borders show either as
+coloured particles or as the same 3D beams Java players see, depending on the server.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="all-commands">All commands</h2><a class="sl-anchor-link" href="#all-commands"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “All commands”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/claim</code></td>
+<td>Get the Claim Wand</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim menu</code></td>
+<td>Your claims, trusted claims, teleport and managing</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim list</code></td>
+<td>Your claim blocks and claims, in chat</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim auto</code></td>
+<td>Claim a square around you in one step</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim tp [name]</code></td>
+<td>Teleport to a claim (<code dir="auto">Base/Storage</code> for a subclaim)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim sethome</code></td>
+<td>Set where <code dir="auto">/claim tp</code> lands in this claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim options</code></td>
+<td>Crop trampling, hostile mobs and PvP for this claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim rename [name]</code></td>
+<td>Rename the claim you’re standing in</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim transfer &#x3C;player></code></td>
+<td>Give the claim you’re standing in to an online player</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim abandon</code></td>
+<td>Delete the claim or subclaim you’re standing in</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimfly</code></td>
+<td>Fly inside your claims (rank perk)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimfly info</code></td>
+<td>Claim Fly status, tier, time left today and when it resets</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim buy [amount]</code></td>
+<td>Buy claim blocks (if the server has an economy)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim trapped</code></td>
+<td>Get out of someone else’s claim you’re stuck in</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim ban [player]</code></td>
+<td>Ban a player from the claim you’re standing in (no name: pick from a menu)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim unban &#x3C;player></code></td>
+<td>Lift a ban</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim bans</code></td>
+<td>See and lift the bans of the claim you’re standing in</td>
+</tr>
+<tr>
+<td><code dir="auto">/claim help</code></td>
+<td>Short help in chat</td>
+</tr>
+<tr>
+<td><code dir="auto">/trust [player]</code></td>
+<td>Let a player build here</td>
+</tr>
+<tr>
+<td><code dir="auto">/untrust &#x3C;player></code></td>
+<td>Remove a trusted player</td>
+</tr>
+<tr>
+<td><code dir="auto">/trustlist</code></td>
+<td>See and remove trusted players</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="faq">FAQ</h2><a class="sl-anchor-link" href="#faq"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “FAQ”</span></a></div>
+<p><strong>Why can’t I claim here?</strong> The usual reasons: you’ve reached your rank’s claim limit, you’re too close to another claim (claims can’t
+overlap), the area is too small (at least 5 wide and 25 blocks by default), you don’t have enough
+claim blocks, claiming is turned off in this world, or the land is a protected server region.
+The action bar tells you which one.</p>
+<p><strong>Do I lose my claims if I stop playing?</strong> Only if your server turned on inactive-claim expiry.
+Ask an admin. Expired claims can be restored by an admin for a while afterwards.</p>
+<p><strong>I abandoned my base by accident.</strong> Abandons can’t be undone, so ask an admin. They can see who
+owned what, but can’t bring an abandoned claim back.</p>
+<p><strong>What are orange claims?</strong> Land the server owns, such as spawn or a market. Only players an admin
+trusted there can build. They don’t belong to any player.</p>
+<p><strong>Can I make a claim go up only to a certain height?</strong> No. Claims always cover the full height.</p> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr"> <a href="/Claimora-docs/" rel="prev" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg> <span class="astro-u2l5gyhi"> Previous <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Home</span> </span> </a> <a href="/Claimora-docs/server-owners/" rel="next" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg> <span class="astro-u2l5gyhi"> Next <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Server owner guide</span> </span> </a> </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>

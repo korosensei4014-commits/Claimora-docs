@@ -1,0 +1,1389 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Server owner guide | Claimora</title><link rel="canonical" href="https://korosensei4014-commits.github.io/Claimora-docs/server-owners/"/><link rel="sitemap" href="/Claimora-docs/sitemap-index.xml"/><link rel="shortcut icon" href="/Claimora-docs/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.4.8"/><meta name="generator" content="Starlight v0.39.3"/><meta property="og:title" content="Server owner guide"/><meta property="og:type" content="article"/><meta property="og:url" content="https://korosensei4014-commits.github.io/Claimora-docs/server-owners/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Installing, permissions, admin tools and config."/><meta property="og:site_name" content="Claimora"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Installing, permissions, admin tools and config."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/Claimora-docs/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/Claimora-docs/_astro/common.DIN4SM-M.css"><script type="module" src="/Claimora-docs/_astro/page.B_tncCx8.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/Claimora-docs/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> Claimora </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"> <button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/Claimora-docs/_astro/Search.astro_astro_type_script_index_0_lang.D3wVI7mi.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script> <script type="module">const r="starlight-theme",o=e=>e==="auto"||e==="dark"||e==="light"?e:"auto",c=()=>o(typeof localStorage<"u"&&localStorage.getItem(r));function n(e){typeof localStorage<"u"&&localStorage.setItem(r,e==="light"||e==="dark"?e:"")}const l=()=>matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?l():e,n(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{c()==="auto"&&t("auto")});class s extends HTMLElement{constructor(){super(),t(c()),this.querySelector("select")?.addEventListener("change",a=>{a.currentTarget instanceof HTMLSelectElement&&t(o(a.currentTarget.value))})}}customElements.define("starlight-theme-select",s);</script> <script type="module">class s extends HTMLElement{constructor(){super();const e=this.querySelector("select");e&&(e.addEventListener("change",t=>{t.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=t.currentTarget.value)}),window.addEventListener("pageshow",t=>{if(!t.persisted)return;const n=e.querySelector("option[selected]")?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}}customElements.define("starlight-lang-select",s);</script> </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="10oisud" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/Claimora-docs/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Home</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/players/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Player guide</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/server-owners/" aria-current="page" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Server owner guide</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/developers/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Developer API</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/Claimora-docs/changelog/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Changelog</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> <select autocomplete="off" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg> </label> </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#installing" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Installing</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#updating" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Updating</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#permissions" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Permissions</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#admin-commands" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Admin commands</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#looking-up-a-players-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Looking up a player’s claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#buying-claim-blocks" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Buying claim blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-limits" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim limits</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-trapped" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">/claim trapped</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-bans" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim bans</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#trust-levels" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Trust levels</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-fly" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim Fly</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#admin-claims-server-land" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Admin claims (server land)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#recycle-bin-and-restoring-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Recycle bin and restoring claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#the-admin-log" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">The admin log</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#configuration" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Configuration</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#top-level-switches" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Top-level switches</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-blocks" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claims" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#wand" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">wand</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#visuals" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">visuals</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-options" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-options</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#protection" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">protection</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#sounds" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">sounds</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#teleport" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">teleport</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-ban" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-ban</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#worldguard-expiry-admin" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">worldguard, expiry, admin</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#messages" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Messages</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-geyser-support" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock (Geyser) support</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-style-menus-claimora-bedrockmenus" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock-style menus (Claimora-BedrockMenus)</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#license-key" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">License key</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#normal-menu-additions-082" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Normal menu additions (0.8.2)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#worldguard" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">WorldGuard</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#placeholderapi" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">PlaceholderAPI</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#inactive-claim-expiry" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Inactive-claim expiry</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#moving-from-griefprevention" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Moving from GriefPrevention</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#usage-statistics-bstats" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Usage statistics (bStats)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#update-checker" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Update checker</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#data-and-backups" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Data and backups</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#performance-and-memory" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Performance and memory</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#troubleshooting" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Troubleshooting</span> </a>  </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/Claimora-docs/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#installing" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Installing</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#updating" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Updating</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#permissions" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Permissions</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#admin-commands" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Admin commands</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#looking-up-a-players-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Looking up a player’s claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#buying-claim-blocks" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Buying claim blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-limits" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim limits</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-trapped" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">/claim trapped</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-bans" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim bans</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#trust-levels" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Trust levels</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#claim-fly" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Claim Fly</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#admin-claims-server-land" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Admin claims (server land)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#recycle-bin-and-restoring-claims" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Recycle bin and restoring claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#the-admin-log" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">The admin log</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#configuration" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Configuration</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#top-level-switches" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Top-level switches</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-blocks" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-blocks</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claims" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claims</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#wand" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">wand</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#visuals" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">visuals</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-options" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-options</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#protection" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">protection</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#sounds" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">sounds</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#teleport" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">teleport</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#claim-ban" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">claim-ban</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#worldguard-expiry-admin" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">worldguard, expiry, admin</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#messages" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Messages</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-geyser-support" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock (Geyser) support</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#bedrock-style-menus-claimora-bedrockmenus" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Bedrock-style menus (Claimora-BedrockMenus)</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#license-key" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">License key</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#normal-menu-additions-082" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Normal menu additions (0.8.2)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#worldguard" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">WorldGuard</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#placeholderapi" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">PlaceholderAPI</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#inactive-claim-expiry" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Inactive-claim expiry</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#moving-from-griefprevention" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Moving from GriefPrevention</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#usage-statistics-bstats" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Usage statistics (bStats)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#update-checker" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Update checker</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#data-and-backups" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Data and backups</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#performance-and-memory" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Performance and memory</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#troubleshooting" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Troubleshooting</span> </a>  </li> </ul></nav></starlight-toc><script type="module" src="/Claimora-docs/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="en" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Server owner guide</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>How to install, configure and run Claimora, and what the admin tools do.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="installing">Installing</h2><a class="sl-anchor-link" href="#installing"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Installing”</span></a></div>
+<p><strong>You need:</strong></p>
+<ul>
+<li>Paper 26.1.2, 26.2 or 26.3, or a fork (Purpur, Universe…), on Java 25. The Bedrock-style menus add-on
+needs KoroUI 0.3.3 or newer on 26.1.2 and 26.2 (older KoroUI only loads on 26.3). Plain Spigot and Folia aren’t supported: Claimora says so
+in the console at startup and switches itself off.</li>
+<li><a href="https://modrinth.com/plugin/packetevents">PacketEvents</a> 2.14.0 or newer. This is required: it
+draws the claim borders.</li>
+</ul>
+<p><strong>Optional:</strong></p>
+<ul>
+<li>Geyser + Floodgate, for Bedrock players</li>
+<li>WorldGuard 7, so players can’t claim inside your regions</li>
+<li>PlaceholderAPI, for <code dir="auto">%claimora_…%</code> placeholders</li>
+<li>Vault plus an economy plugin (EssentialsX, CMI…), for <code dir="auto">/claim buy</code></li>
+</ul>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Download the latest <code dir="auto">Claimora-&#x3C;version>.jar</code> from the page where you got Claimora.</li>
+<li>Put it and PacketEvents in <code dir="auto">plugins/</code>.</li>
+<li>Start the server. Claimora creates <code dir="auto">plugins/Claimora/</code> with <code dir="auto">config.yml</code>, <code dir="auto">messages.yml</code> and
+<code dir="auto">claimora.db</code>.</li>
+</ol>
+<div class="sl-heading-wrapper level-h2"><h2 id="updating">Updating</h2><a class="sl-anchor-link" href="#updating"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Updating”</span></a></div>
+<p>Replace the jar and restart. You <strong>don’t</strong> need to delete <code dir="auto">config.yml</code> or <code dir="auto">messages.yml</code>. New
+settings and messages use their defaults until you add them to your files. The database upgrades
+itself on first start, and the console says so (for example “Database updated to schema version 4”).</p>
+<p>To see every option of a new version, rename your old <code dir="auto">config.yml</code> and <code dir="auto">messages.yml</code>, let Claimora
+make fresh ones on the next start, and compare them.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="permissions">Permissions</h2><a class="sl-anchor-link" href="#permissions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Permissions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Default</th>
+<th>Grants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">claimora.use</code></td>
+<td>everyone</td>
+<td>Claim land, trust players, use the wand and menus</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.teleport</code></td>
+<td>everyone</td>
+<td><code dir="auto">/claim tp</code></td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.teleport.nocooldown</code></td>
+<td>op</td>
+<td>Skip the <code dir="auto">/claim tp</code> cooldown</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.claims.max.&#x3C;n></code></td>
+<td>nobody</td>
+<td>Can own at most n main claims (highest wins). Without it: no limit.</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.trapped.nocooldown</code></td>
+<td>op</td>
+<td><code dir="auto">/claim trapped</code> without the cooldown</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.ban</code></td>
+<td>everyone</td>
+<td>Ban and unban players from claims you own (<code dir="auto">/claim ban</code>, <code dir="auto">unban</code>, <code dir="auto">bans</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.ban.bypass</code></td>
+<td>op</td>
+<td>Can’t be banned and walks through claim bans (part of <code dir="auto">claimora.admin</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.fly.tier.&#x3C;name></code></td>
+<td>nobody</td>
+<td>Claim Fly with that tier from <code dir="auto">claim-fly.tiers</code> (see <a href="#claim-fly">Claim Fly</a>)</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin.view</code></td>
+<td>op</td>
+<td><code dir="auto">/claimadmin claims</code>, <code dir="auto">inspect</code> and <code dir="auto">log</code>: look at anyone’s claims</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin.teleport</code></td>
+<td>op</td>
+<td><code dir="auto">/claimadmin tp</code>: teleport to any claim instantly</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin.modify</code></td>
+<td>op</td>
+<td>Trust, rename, transfer and resize anyone’s claims; make and manage admin claims. Includes view.</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin.delete</code></td>
+<td>op</td>
+<td><code dir="auto">/claimadmin delete</code> and <code dir="auto">restore</code>. Includes modify and view.</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin.updates</code></td>
+<td>op</td>
+<td>Be told on join when a newer Claimora is out (see <a href="#update-checker">Update checker</a>)</td>
+</tr>
+<tr>
+<td><code dir="auto">claimora.admin</code></td>
+<td>op</td>
+<td>Everything above (including <code dir="auto">updates</code>), plus <code dir="auto">blocks</code>, <code dir="auto">bypass</code>, <code dir="auto">reload</code> and <code dir="auto">memory</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Teleport is separate on purpose.</strong> View, modify and delete don’t include it, so you can let a
+helper look up claims without letting them travel to everyone’s base. Give both if you want both.</p>
+<p><strong>Example setup with LuckPerms:</strong></p>
+<div class="expressive-code"><link rel="stylesheet" href="/Claimora-docs/_astro/ec.v4551.css"><script type="module" src="/Claimora-docs/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group helper permission set claimora.admin.view true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group moderator permission set claimora.admin.modify true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group moderator permission set claimora.admin.teleport true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group admin permission set claimora.admin true</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/lp group helper permission set claimora.admin.view true/lp group moderator permission set claimora.admin.modify true/lp group moderator permission set claimora.admin.teleport true/lp group admin permission set claimora.admin true"><div></div></button></div></figure></div>
+<p>Permissions are checked again on every menu click, so a menu opened before someone was demoted
+can’t be used afterwards.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="admin-commands">Admin commands</h2><a class="sl-anchor-link" href="#admin-commands"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Admin commands”</span></a></div>
+<p>All admin commands are under <code dir="auto">/claimadmin</code>. A claim <strong>ID</strong> is the number shown in inspect and in
+claim lists (<code dir="auto">12</code> or <code dir="auto">#12</code> both work). IDs never change, unlike a claim’s position in a list.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Permission</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/claimadmin claims &#x3C;player></code></td>
+<td>view</td>
+<td>That player’s claims, online or offline, as a menu</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin claims server</code></td>
+<td>view</td>
+<td>Every admin (server) claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin adminclaim</code></td>
+<td>modify</td>
+<td>Your next wand claim (within 2 minutes) becomes an admin claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin inspect [id]</code></td>
+<td>view</td>
+<td>Claim details. No ID: the claim you’re standing in.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin tp &#x3C;id></code></td>
+<td>teleport</td>
+<td>Teleport to any claim or subclaim. No warm-up or cooldown.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin tp &#x3C;id> center</code></td>
+<td>teleport</td>
+<td>Same, but ignore the owner’s home point and land near the centre</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin trust &#x3C;id> &#x3C;player> [level]</code></td>
+<td>modify</td>
+<td>Trust a player in any claim or subclaim (default Build)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin untrust &#x3C;id> &#x3C;player></code></td>
+<td>modify</td>
+<td>Remove a trusted player</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin rename &#x3C;id> &#x3C;name></code></td>
+<td>modify</td>
+<td>Rename any claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin transfer &#x3C;id> &#x3C;player></code></td>
+<td>modify</td>
+<td>Give a main claim (with its subclaims) to anyone, even offline. Asks to confirm.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin transfer &#x3C;id> server</code></td>
+<td>modify</td>
+<td>Turn a player’s claim into an admin claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin resize &#x3C;id></code></td>
+<td>modify</td>
+<td>Arms your wand: right-click a corner of that claim within 2 minutes</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin delete [id]</code></td>
+<td>delete</td>
+<td>Delete a claim (no ID: the one you’re standing in). Asks to confirm.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin restore</code></td>
+<td>delete</td>
+<td>List the recycle bin (newest 50). Tap an entry to restore it.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin restore &#x3C;id></code></td>
+<td>delete</td>
+<td>Bring a deleted claim back</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin restore &#x3C;player></code></td>
+<td>delete</td>
+<td>That player’s claims in the recycle bin</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin restore purge &#x3C;id|admin|expired|all></code></td>
+<td>delete</td>
+<td>Remove recycle-bin entries for good: one claim, all admin deletes, all inactivity removals, or everything. Asks first; add <code dir="auto">confirm</code> to go ahead.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin log</code></td>
+<td>view</td>
+<td>The newest 50 admin actions</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin log &#x3C;player></code> / <code dir="auto">log #&#x3C;id></code></td>
+<td>view</td>
+<td>Admin actions on one player’s claims, or one claim</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin blocks give &#x3C;player> &#x3C;n></code></td>
+<td>admin</td>
+<td>Add claim blocks (works offline)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin blocks take &#x3C;player> &#x3C;n></code></td>
+<td>admin</td>
+<td>Remove claim blocks</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin blocks set &#x3C;player> &#x3C;n></code></td>
+<td>admin</td>
+<td>Set how many claim blocks the player has <strong>left to spend</strong> (their claims keep the blocks they use). Before 0.8.5 this set the total, so <code dir="auto">set 0</code> could leave a player at a negative number.</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin bypass</code></td>
+<td>admin</td>
+<td>Toggle ignoring all claims yourself</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin reload</code></td>
+<td>admin</td>
+<td>Reload <code dir="auto">config.yml</code> and <code dir="auto">messages.yml</code></td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin import griefprevention [confirm]</code></td>
+<td>admin</td>
+<td>Copy GriefPrevention’s claims, trust and claim blocks (see <a href="#moving-from-griefprevention">Moving from GriefPrevention</a>)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin memory</code></td>
+<td>admin</td>
+<td>Show the size of everything Claimora keeps in memory</td>
+</tr>
+</tbody>
+</table>
+<p>Everything except <code dir="auto">tp</code>, <code dir="auto">resize</code> and <code dir="auto">bypass</code> also works from the console, with text output. From
+the console, <code dir="auto">transfer</code> and <code dir="auto">delete &#x3C;id></code> happen straight away without a confirmation.</p>
+<p><strong>Admin changes ignore claim blocks.</strong> Admin resize and transfer don’t check the owner’s balance,
+so you can fix things a player couldn’t afford. The new size still counts as the owner’s used
+blocks, so their available balance can go negative. That only stops them making new claims until
+they earn more.</p>
+<p><strong>Resizing someone’s claim:</strong> run <code dir="auto">/claimadmin resize &#x3C;id></code> (or press <strong>Resize</strong> in inspect), hold
+the Claim Wand, right-click a corner of that claim, move to the new spot and right-click twice, as
+a player would. Left-click cancels. The action bar shows “Admin resize” while it’s armed.</p>
+<p>Players with the modify permission can also use <code dir="auto">/trust</code> and <code dir="auto">/untrust</code> while standing in anyone’s
+claim, and the admin log records it.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="looking-up-a-players-claims">Looking up a player’s claims</h2><a class="sl-anchor-link" href="#looking-up-a-players-claims"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Looking up a player’s claims”</span></a></div>
+<p><code dir="auto">/claimadmin claims Steve</code> opens Steve’s claims:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">Steve's claims</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">  </span></span><span style="--0:#d6deeb;--1:#403f53">4 claims · 1,250 blocks used · last seen 12 days ago</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#d6deeb;--1:#403f53">  </span></span><span style="--0:#d6deeb;--1:#403f53">[ Base #12 · 2 subclaims ]  [ Farm #31 · 0 subclaims ]  …</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Steve&#x27;s claims  4 claims · 1,250 blocks used · last seen 12 days ago  [ Base #12 · 2 subclaims ]  [ Farm #31 · 0 subclaims ]  …"><div></div></button></div></figure></div>
+<p>Tap a claim to <strong>inspect</strong> it. You’ll see the owner (name and UUID), world, corners, size, creation
+date, home point, trusted players and subclaims. From there you can <strong>Teleport</strong> (teleport
+permission), open its <strong>Subclaims</strong>, and, with the modify permission, change <strong>Trusted players</strong>,
+<strong>Rename</strong>, <strong>Transfer</strong> (to an online player, with a confirmation) or <strong>Resize</strong> it.</p>
+<p>If another admin changes the claim’s owner while your transfer dialog is open, the confirm button
+stops with a message instead of applying an old choice.</p>
+<ul>
+<li>Offline players work. The name is looked up in the server’s own player cache (anyone who has
+joined before), never online.</li>
+<li>A raw UUID works too: <code dir="auto">/claimadmin claims 069a79f4-44e9-4726-a5be-fca90e38aaf5</code>.</li>
+<li>Long lists are split into pages of 36.</li>
+<li><strong>Tab completion</strong> suggests online players and offline players who own claims (up to 30, matching
+what you’ve typed). It only uses names the server still remembers in memory, so nothing is read
+from disk. A player missing from the suggestions still works if you type the full name.</li>
+</ul>
+<p><strong>Where admin teleport lands:</strong> the claim’s home point if it’s safe, otherwise a safe spot near the
+centre inside the claim. In the Nether it searches below the roof. If nothing safe is found it
+tells you instead of dropping you somewhere dangerous. Use <code dir="auto">center</code> to skip the home point (for
+example, if an owner hid it underground).</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="buying-claim-blocks">Buying claim blocks</h2><a class="sl-anchor-link" href="#buying-claim-blocks"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Buying claim blocks”</span></a></div>
+<p>With Vault and an economy plugin installed, players can buy claim blocks: <code dir="auto">/claim buy &#x3C;amount></code>, or
+<strong>Buy claim blocks</strong> in <code dir="auto">/claim menu</code> (preset amounts, handy on Bedrock). Without Vault or an economy,
+the command says buying isn’t available and the menu button is hidden.</p>
+<ul>
+<li><strong>Price:</strong> amount × <code dir="auto">price-per-block</code> (default 2.0, so 500 blocks cost 1,000). The player sees the
+price and their balance and confirms.</li>
+<li><strong>Safe order:</strong> the money is taken first; the blocks are added only if the payment succeeded.
+Every purchase is printed to the console.</li>
+<li><strong>Limits:</strong> <code dir="auto">min-amount</code> and <code dir="auto">max-per-purchase</code> per purchase, and <code dir="auto">max-bought</code> per player over
+their lifetime (0 = no limit).</li>
+<li>Bought blocks are kept for good and counted separately (so <code dir="auto">max-bought</code> works). There’s no
+selling back, on purpose: otherwise blocks earned by playing could be turned into money.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">claim-blocks.buy.enabled</code></td>
+<td>true</td>
+<td>Allow buying (still needs Vault + an economy)</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-blocks.buy.price-per-block</code></td>
+<td>2.0</td>
+<td>Price of one block</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-blocks.buy.min-amount</code></td>
+<td>10</td>
+<td>Smallest purchase</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-blocks.buy.max-per-purchase</code></td>
+<td>5000</td>
+<td>Largest purchase</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-blocks.buy.max-bought</code></td>
+<td>50000</td>
+<td>Lifetime limit per player (0 = none)</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-blocks.buy.presets</code></td>
+<td>100, 500, 1000</td>
+<td>Amounts offered in the menu</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-limits">Claim limits</h2><a class="sl-anchor-link" href="#claim-limits"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim limits”</span></a></div>
+<p>Give a rank <code dir="auto">claimora.claims.max.&#x3C;n></code> to cap how many <strong>main claims</strong> its players can own:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group default permission set claimora.claims.max.3 true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group vip permission set claimora.claims.max.10 true</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/lp group default permission set claimora.claims.max.3 true/lp group vip permission set claimora.claims.max.10 true"><div></div></button></div></figure></div>
+<ul>
+<li>With several, the <strong>highest</strong> number counts. <strong>No permission means no limit</strong>; claim blocks still
+limit the total area.</li>
+<li>Subclaims and admin claims don’t count.</li>
+<li>At the limit, starting a new claim, <code dir="auto">/claim auto</code> and receiving a claim by <code dir="auto">/claim transfer</code> are
+refused with a message. Players already over the limit (after a rank change) keep their claims.</li>
+<li>Admin transfers ignore limits.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-trapped">/claim trapped</h2><a class="sl-anchor-link" href="#claim-trapped"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “/claim trapped”</span></a></div>
+<p>For players stuck inside someone else’s claim. Only works where they can’t build. They stand still
+for <code dir="auto">trapped.warmup-seconds</code> (10; moving or damage cancels), then go to the nearest safe, unclaimed
+spot just outside the claim’s closest border (within 64 blocks; only that border’s chunk is loaded).
+If nothing safe is found they stay put and are told to ask an admin; the cooldown isn’t used. Cooldown:
+<code dir="auto">trapped.cooldown-minutes</code> (60), kept across reconnects; <code dir="auto">claimora.trapped.nocooldown</code> skips it.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-bans">Claim bans</h2><a class="sl-anchor-link" href="#claim-bans"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim bans”</span></a></div>
+<p>Claim owners can ban players from a claim (<code dir="auto">/claim ban &#x3C;player></code>, or <strong>Banned players</strong> on the claim’s page).
+A banned player can’t get into the claim or its subclaims: moves into it are cancelled at the border, ender
+pearls and chorus fruit landing inside are cancelled (the pearl is given back), riders (horses, pigs, boats, minecarts and other mounts) are dismounted and moved out with their mount, and
+anyone who arrives inside by command, plugin, portal, respawn or login is moved to the nearest safe spot
+outside. If none is found, they go to their bed or respawn anchor (if it’s valid and not in a claim they’re
+banned from), otherwise the world spawn. Banning also removes the player’s trust in that claim and its
+subclaims.</p>
+<ul>
+<li>Only the owner bans. Admins with <code dir="auto">claimora.admin.modify</code> can manage bans on any claim; their changes go into
+the admin log. Players with <code dir="auto">claimora.ban.bypass</code> (admins by default) can’t be banned and aren’t stopped.</li>
+<li>Other plugins’ teleports aren’t cancelled (that could break <code dir="auto">/home</code>, <code dir="auto">/warp</code> and the like); the player is
+moved out right after they arrive.</li>
+<li>Config (<code dir="auto">claim-ban</code>): <code dir="auto">enabled</code> (default true), <code dir="auto">max-per-claim</code> (50) and <code dir="auto">message-cooldown-seconds</code> (3).
+The sound is <code dir="auto">sounds.banned</code>. With <code dir="auto">enabled: false</code> there are no ban commands, menu rows or checks, and no
+listener is registered; stored bans are kept and come back when you turn it on again (a reload is enough).</li>
+<li>Bans are stored in the <code dir="auto">claim_bans</code> table (database schema 10, added automatically on first start; nothing
+existing changes). They follow the claim through transfers, resizes and the recycle bin.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="trust-levels">Trust levels</h2><a class="sl-anchor-link" href="#trust-levels"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Trust levels”</span></a></div>
+<p>Players trust others at one of four levels with <code dir="auto">/trust &#x3C;player> [level]</code> (or the menus). Each level
+includes the ones before it:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Allows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">guest</code></td>
+<td>Doors, trapdoors, fence gates, buttons, levers, pressure plates, beds, bells, riding vehicles</td>
+</tr>
+<tr>
+<td><code dir="auto">containers</code></td>
+<td>Guest + chests, barrels, furnaces, hoppers and other storage, lecterns, composters, animals (interact and kill), farming (harvest ripe crops, melons and pumpkins; replant; bone meal)</td>
+</tr>
+<tr>
+<td><code dir="auto">build</code></td>
+<td>Containers + everything else. Plain <code dir="auto">/trust &#x3C;player></code> gives this.</td>
+</tr>
+<tr>
+<td><code dir="auto">manager</code></td>
+<td>Build + trusting and untrusting others up to Build</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Upgrading from an older version: everyone already trusted becomes <strong>Build</strong>, which is what they
+had, so nothing changes until owners pick other levels.</li>
+<li>Subclaims have their own trust lists with the same levels, and stay private.</li>
+<li><code dir="auto">teleport.min-trust</code> and <code dir="auto">claim-fly.min-trust</code> (default <code dir="auto">guest</code>) set the lowest level that may
+teleport to, or Claim-Fly in, a trusted claim.</li>
+<li>Admins: <code dir="auto">/claimadmin trust &#x3C;id> &#x3C;player> [level]</code>.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="claim-fly">Claim Fly</h2><a class="sl-anchor-link" href="#claim-fly"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Claim Fly”</span></a></div>
+<p><code dir="auto">/claimfly</code> lets players fly inside claims, as a rank perk. Nobody has it by default, ops included.</p>
+<p><strong>Giving it to a rank:</strong> each tier in <code dir="auto">claim-fly.tiers</code> is a permission <code dir="auto">claimora.fly.tier.&#x3C;name></code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group elite permission set claimora.fly.tier.elite true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/lp group sovereign permission set claimora.fly.tier.sovereign true</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/lp group elite permission set claimora.fly.tier.elite true/lp group sovereign permission set claimora.fly.tier.sovereign true"><div></div></button></div></figure></div>
+<p>If a player has several tiers, the one with the largest allowance counts (<code dir="auto">unlimited</code> beats
+everything). Rank changes during the day apply at once: time already flown still counts.</p>
+<p><strong>Daily time:</strong></p>
+<ul>
+<li>Only time <strong>actually flying</strong> counts. Standing or walking with Claim Fly on, and the grace
+countdown, are free.</li>
+<li>The allowance resets at <code dir="auto">reset-time</code> in <code dir="auto">timezone</code> (default 00:00 <code dir="auto">Asia/Manila</code>). Use IANA time
+zone IDs (<code dir="auto">UTC</code>, <code dir="auto">America/New_York</code>, <code dir="auto">Europe/London</code>…); daylight saving is handled.</li>
+<li>There’s no reset task. Each player stores the time used and which day it belongs to; a stored
+day that isn’t today counts as nothing used. Restarts, crashes and offline days don’t matter, and
+reconnecting, changing worlds or switching claims can’t reset anyone’s time.</li>
+<li>Time is saved whenever a flight ends (landing, leaving, toggling off), on quit and on shutdown.
+After a crash, at most the flight in progress is lost.</li>
+<li>Warnings at <code dir="auto">warn-at</code> (5m, 1m). Running out mid-air gives the grace countdown and a safe fall.</li>
+</ul>
+<p><strong>Admin commands:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Permission</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/claimadmin flytime &#x3C;player></code></td>
+<td>view</td>
+<td>Tier, used and left today (online players)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin flytime &#x3C;player> add &#x3C;time></code></td>
+<td>modify</td>
+<td>Extra time for today only (works offline)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin flytime &#x3C;player> set &#x3C;time></code></td>
+<td>modify</td>
+<td>Set today’s time left (online players: it depends on their rank)</td>
+</tr>
+<tr>
+<td><code dir="auto">/claimadmin flytime &#x3C;player> reset</code></td>
+<td>modify</td>
+<td>Give back today’s full allowance (works offline)</td>
+</tr>
+</tbody>
+</table>
+<p>All are logged in the admin log. <code dir="auto">%claimora_fly_remaining%</code> shows time left (<code dir="auto">42:17</code>, <code dir="auto">unlimited</code>,
+or empty without a tier).</p>
+<p><strong>Where:</strong> claims the player owns, and (with <code dir="auto">where: own-and-trusted</code>, the default) claims or
+subclaims they’re trusted in. Admin claims only with <code dir="auto">in-admin-claims: true</code>, for players trusted there.</p>
+<p><strong>How it behaves:</strong></p>
+<ul>
+<li>Flying out of an allowed claim starts a <code dir="auto">grace-seconds</code> (3) countdown in the action bar. Flying back
+in cancels it. When it ends, flight stops and the player’s next fall does no damage.</li>
+<li>Walking out pauses flight quietly; it comes back inside an allowed claim.</li>
+<li>With <code dir="auto">disable-on-pvp: true</code>, real player-vs-player damage (not mobs, not blocked hits) turns Claim Fly
+off for both players straight away, with a safe fall, and locks it for <code dir="auto">pvp-cooldown-seconds</code> (10).</li>
+<li>Losing the tier, the claim being deleted, the player being untrusted, or the owner blocking the
+<code dir="auto">claim-fly</code> option all stop flight the same way.</li>
+<li>Quit, death, switching to creative or spectator, and the plugin shutting down all end
+Claim Fly cleanly.</li>
+</ul>
+<p><strong>Other flight plugins:</strong> Claimora only turns off flight it turned on. Players with a permission in
+<code dir="auto">own-flight-permissions</code> (default <code dir="auto">essentials.fly</code>) already fly, so <code dir="auto">/claimfly</code> leaves them alone. If
+another plugin (a combat tag, say) turns flight off, Claim Fly notices and switches itself off.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">claim-fly.enabled</code></td>
+<td>true</td>
+<td>Turn Claim Fly on or off for the whole server. Off: <code dir="auto">/claimfly</code>, its timer and the <code dir="auto">claim-fly</code> claim option all disappear.</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.timezone</code></td>
+<td>Asia/Manila</td>
+<td>Time zone for the daily reset (IANA ID)</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.reset-time</code></td>
+<td>00:00</td>
+<td>Local time of the daily reset</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.warn-at</code></td>
+<td>5m, 1m</td>
+<td>Chat warnings when this much time is left</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.where</code></td>
+<td>own-and-trusted</td>
+<td><code dir="auto">own</code>, or <code dir="auto">own-and-trusted</code></td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.min-trust</code></td>
+<td>guest</td>
+<td>Lowest trust level that may fly in a trusted claim</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.in-admin-claims</code></td>
+<td>false</td>
+<td>Allow it in admin claims (trusted players only)</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.grace-seconds</code></td>
+<td>3</td>
+<td>Countdown after flying out of an allowed claim</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.show-timer</code></td>
+<td>true</td>
+<td>”✈ Claim Fly · 42:17 left” in the action bar while flying</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.disable-on-pvp</code></td>
+<td>true</td>
+<td>PvP turns Claim Fly off</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.pvp-cooldown-seconds</code></td>
+<td>10</td>
+<td>How long it stays locked after PvP</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.own-flight-permissions</code></td>
+<td>essentials.fly</td>
+<td>Players with these already fly; left alone</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-fly.tiers</code></td>
+<td>elite 30m, royal 60m, emperor 120m, sovereign unlimited</td>
+<td>Tier names and daily time (<code dir="auto">30s</code>, <code dir="auto">15m</code>, <code dir="auto">1h30m</code>, <code dir="auto">unlimited</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="admin-claims-server-land">Admin claims (server land)</h2><a class="sl-anchor-link" href="#admin-claims-server-land"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Admin claims (server land)”</span></a></div>
+<p>Admin claims protect land the server owns: spawn, a market, event areas. They have <strong>orange</strong>
+borders and show “Server” as the owner.</p>
+<p><strong>Making one:</strong> run <code dir="auto">/claimadmin adminclaim</code>, hold the Claim Wand and select the area as usual
+within 2 minutes. The action bar says “Admin claim” while it’s armed. You’ll be asked for a name.
+Left-click cancels.</p>
+<p><strong>Turning an existing claim into one:</strong> <code dir="auto">/claimadmin transfer &#x3C;id> server</code>, or <strong>Transfer → Server</strong>
+in inspect. <code dir="auto">transfer &#x3C;id> &#x3C;player></code> gives it back to a player (they don’t pay claim blocks).</p>
+<p><strong>How they behave:</strong></p>
+<ul>
+<li><strong>Free:</strong> no claim blocks, no limit on size beyond <code dir="auto">claims.max-width</code>.</li>
+<li><strong>Protected like any claim:</strong> only players trusted there, or admins in bypass mode, can build.
+Use <code dir="auto">/trust</code> while standing in it, or <strong>Trusted players</strong> in inspect.</li>
+<li><strong>Managed by admins:</strong> anyone with <code dir="auto">claimora.admin.modify</code> can grab its corners with the wand to
+resize it and make subclaims inside it, just like an owner. Every change is logged.</li>
+<li><strong>Never expire</strong> with inactivity expiry, and don’t count toward anyone’s claims.</li>
+<li><strong>Teleport:</strong> players can <code dir="auto">/claim tp</code> to one only if they’re trusted there.</li>
+<li>Deleted admin claims go to the recycle bin like any admin delete.</li>
+<li>WorldGuard’s region check still applies, so give the region the <code dir="auto">claimora-claim</code> flag if you want
+an admin claim inside it.</li>
+</ul>
+<p><code dir="auto">/claimadmin claims server</code> lists them all.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="recycle-bin-and-restoring-claims">Recycle bin and restoring claims</h2><a class="sl-anchor-link" href="#recycle-bin-and-restoring-claims"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Recycle bin and restoring claims”</span></a></div>
+<p>Claims deleted <strong>by an admin</strong> or <strong>by inactivity expiry</strong> go to a recycle bin for
+<code dir="auto">admin.recycle-days</code> (default 30) instead of disappearing. Player abandons are <em>not</em> kept: the
+player confirmed it and got their claim blocks back.</p>
+<ul>
+<li><code dir="auto">/claimadmin restore</code> lists the bin, newest first: name, ID, owner, why and when it was deleted.
+Tap one to restore it, or use <code dir="auto">/claimadmin restore &#x3C;id></code>.</li>
+<li>A restored claim comes back with its <strong>subclaims, trusted players, names and home points</strong>, owned
+by the same player, with the same ID.</li>
+<li>If someone has claimed that land since, the restore is refused and names the claim in the way.</li>
+<li>A deleted <strong>subclaim</strong> can be restored only while its main claim still exists and it still fits
+inside it. If the main claim changed owner, the subclaim goes to the new owner.</li>
+<li>If the owner already has another claim with the same name, the restored one gets “Base 2” and so on.</li>
+<li>The restored land counts toward the owner’s used claim blocks again, even if that takes their
+balance below zero.</li>
+<li>Entries older than <code dir="auto">admin.recycle-days</code> are removed by the daily check. Set it to <code dir="auto">0</code> to turn the
+bin off, and admin deletes then can’t be undone (the confirmation says so).</li>
+<li><strong>Removing entries early, for good</strong> (0.9.8): tap an entry in the bin and choose <strong>Delete forever</strong>, or use the
+buttons under the list (clear admin deletes, clear expired claims, empty the bin). From chat or the console:
+<code dir="auto">/claimadmin restore purge &#x3C;id></code>, <code dir="auto">purge admin</code>, <code dir="auto">purge expired</code> or <code dir="auto">purge all</code>. Each one first says what would be
+removed (with the count) and asks you to confirm: a confirm page in the menus, or the same command with
+<code dir="auto">confirm</code> at the end, e.g. <code dir="auto">/claimadmin restore purge admin confirm</code>. Removed entries can’t be restored, and each
+removal is written to the admin log.</li>
+<li>Claim IDs are never reused, even after a bin entry is removed or a player abandons a claim, so the admin log never
+mixes up two claims with the same ID.</li>
+</ul>
+<p>The delete confirmation shows the owner, size and how many subclaims go with it. If the claim changed
+(new owner or size) while the dialog was open, it stops instead of deleting.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-admin-log">The admin log</h2><a class="sl-anchor-link" href="#the-admin-log"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “The admin log”</span></a></div>
+<p>Admin actions are saved to the <code dir="auto">admin_log</code> table in <code dir="auto">claimora.db</code> and printed to the console:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[Claimora] [Admin] Koro deleted claim #12 'Base' of Steve</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">[Claimora] [Admin] Koro give 500 claim blocks for Steve</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[Claimora] [Admin] Koro deleted claim #12 &#x27;Base&#x27; of Steve[Claimora] [Admin] Koro give 500 claim blocks for Steve"><div></div></button></div></figure></div>
+<p>Logged: admin claim <strong>creation</strong> (and subclaims made inside admin claims), admin <strong>teleports</strong>, <strong>trust/untrust</strong>, <strong>renames</strong>, <strong>transfers</strong>, <strong>resizes</strong> (with the old
+and new size), <strong>deletes</strong>, <strong>restores</strong> and <strong>claim block</strong> changes. Changes an owner makes to their
+own claim aren’t logged. Entries older than
+<code dir="auto">admin.log-days</code> (default 180) are removed once a day.</p>
+<p><code dir="auto">/claimadmin log</code> shows the newest 50 entries, 10 per page: when, which admin, what they did, the
+claim, its owner and the change (for example <code dir="auto">24x30 at 100,-40 → 30x30 at 100,-40</code>).
+<code dir="auto">/claimadmin log Steve</code> narrows it to Steve’s claims, <code dir="auto">/claimadmin log #12</code> to one claim. Inspect
+also has an <strong>Admin log</strong> button for that claim.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="configuration">Configuration</h2><a class="sl-anchor-link" href="#configuration"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Configuration”</span></a></div>
+<p><code dir="auto">plugins/Claimora/config.yml</code>. Change it, then run <code dir="auto">/claimadmin reload</code>.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="top-level-switches">Top-level switches</h3><a class="sl-anchor-link" href="#top-level-switches"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Top-level switches”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">metrics</code></td>
+<td><code dir="auto">true</code></td>
+<td>Anonymous usage statistics through bStats (see <a href="#usage-statistics-bstats">Usage statistics</a>). Needs a restart.</td>
+</tr>
+<tr>
+<td><code dir="auto">update-checker</code></td>
+<td><code dir="auto">true</code></td>
+<td>Check Modrinth for a newer Claimora at startup and once a day (see <a href="#update-checker">Update checker</a>). Needs a restart.</td>
+</tr>
+<tr>
+<td><code dir="auto">startup-banner</code></td>
+<td><code dir="auto">true</code></td>
+<td>The Claimora logo and a short summary in the console at startup: version, server and Java version, storage and claims loaded, plugins Claimora hooks into, whether statistics are on, and the docs link. Handy to copy into a support request. <code dir="auto">false</code> prints one line instead. Needs a restart.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="claim-blocks"><code dir="auto">claim-blocks</code></h3><a class="sl-anchor-link" href="#claim-blocks"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “claim-blocks”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">starting</code></td>
+<td>100</td>
+<td>Blocks every player starts with. Changing it applies to everyone.</td>
+</tr>
+<tr>
+<td><code dir="auto">per-active-hour</code></td>
+<td>100</td>
+<td>Earned per hour of active play (moved in the last 5 minutes)</td>
+</tr>
+<tr>
+<td><code dir="auto">max-earned</code></td>
+<td>20000</td>
+<td>Cap on blocks earned from playtime. Admin grants are separate.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="claims"><code dir="auto">claims</code></h3><a class="sl-anchor-link" href="#claims"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “claims”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">min-width</code></td>
+<td>5</td>
+<td>Smallest side length</td>
+</tr>
+<tr>
+<td><code dir="auto">min-area</code></td>
+<td>25</td>
+<td>Smallest area</td>
+</tr>
+<tr>
+<td><code dir="auto">max-width</code></td>
+<td>1000</td>
+<td>Largest side length</td>
+</tr>
+<tr>
+<td><code dir="auto">auto-size</code></td>
+<td>11</td>
+<td>Size of the square made by <code dir="auto">/claim auto</code></td>
+</tr>
+<tr>
+<td><code dir="auto">naming-dialog</code></td>
+<td>true</td>
+<td>Ask for a name after claiming</td>
+</tr>
+<tr>
+<td><code dir="auto">enter-messages</code></td>
+<td>true</td>
+<td>“Entering Base · Steve” on the action bar</td>
+</tr>
+<tr>
+<td><code dir="auto">disabled-worlds</code></td>
+<td>[]</td>
+<td>Worlds where claiming is off</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="wand"><code dir="auto">wand</code></h3><a class="sl-anchor-link" href="#wand"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “wand”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">give-on-first-join</code></td>
+<td>true</td>
+<td>Give the wand to new players</td>
+</tr>
+<tr>
+<td><code dir="auto">reach</code></td>
+<td>64</td>
+<td>How far the crosshair reaches while selecting</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="visuals"><code dir="auto">visuals</code></h3><a class="sl-anchor-link" href="#visuals"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “visuals”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">glowing</code></td>
+<td>true</td>
+<td>Glowing outline, visible through walls</td>
+</tr>
+<tr>
+<td><code dir="auto">view-radius</code></td>
+<td>64</td>
+<td>Only border pieces this close are drawn</td>
+</tr>
+<tr>
+<td><code dir="auto">max-segments</code></td>
+<td>256</td>
+<td>Most border pieces shown to one player at once</td>
+</tr>
+<tr>
+<td><code dir="auto">flash-seconds</code></td>
+<td>6</td>
+<td>How long a border shows after a player is blocked</td>
+</tr>
+<tr>
+<td><code dir="auto">beam-thickness</code></td>
+<td>0.06</td>
+<td>Beam thickness, in blocks</td>
+</tr>
+<tr>
+<td><code dir="auto">styles.&#x3C;name>.block</code> / <code dir="auto">.glow</code></td>
+<td></td>
+<td>Block and glow colour for <code dir="auto">own</code>, <code dir="auto">other</code>, <code dir="auto">admin</code>, <code dir="auto">subclaim</code>, <code dir="auto">preview-valid</code>, <code dir="auto">preview-invalid</code></td>
+</tr>
+<tr>
+<td><code dir="auto">bedrock.borders</code></td>
+<td>particles</td>
+<td><code dir="auto">particles</code>, or <code dir="auto">displays</code> (needs a Geyser add-on such as Scaffolding)</td>
+</tr>
+<tr>
+<td><code dir="auto">bedrock.spacing</code> / <code dir="auto">size</code> / <code dir="auto">max-particles</code></td>
+<td>1.0 / 1.0 / 600</td>
+<td>Particle settings</td>
+</tr>
+</tbody>
+</table>
+<p>Borders are <strong>client-side only</strong>. No real entities are spawned, so they can’t lag the server or
+be broken.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="claim-options"><code dir="auto">claim-options</code></h3><a class="sl-anchor-link" href="#claim-options"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “claim-options”</span></a></div>
+<p>Which switches claim owners get in <code dir="auto">/claim options</code> (or <strong>Manage → Options</strong> in <code dir="auto">/claim menu</code>). Each is <code dir="auto">true</code>
+(owners can switch it per claim) or <code dir="auto">false</code> (hidden; claims keep vanilla behaviour and owners’ earlier choices are
+ignored until you turn it back on). These <strong>don’t</strong> turn plugin features on or off: to turn Claim Fly off for the
+whole server, use <code dir="auto">claim-fly.enabled: false</code> (its switch then disappears here too).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Owners can…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">claim-options.crop-trampling</code></td>
+<td><code dir="auto">true</code></td>
+<td>stop farmland trampling in their claim</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-options.hostile-spawns</code></td>
+<td><code dir="auto">true</code></td>
+<td>stop hostile mobs spawning naturally</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-options.pvp</code></td>
+<td><code dir="auto">true</code></td>
+<td>stop players hurting each other</td>
+</tr>
+<tr>
+<td><code dir="auto">claim-options.claim-fly</code></td>
+<td><code dir="auto">true</code></td>
+<td>stop <code dir="auto">/claimfly</code> in their claim</td>
+</tr>
+</tbody>
+</table>
+<p>Configs from before 0.9.5 that still have the old <code dir="auto">options.enabled</code> list keep working exactly as before; switch to
+<code dir="auto">claim-options</code> whenever you like (delete the old <code dir="auto">options:</code> section when you do).</p>
+<p>What each option does when a player switches it:</p>
+<ul>
+<li><code dir="auto">crop-trampling</code>: nobody tramples farmland in the claim, the owner and trusted players included.</li>
+<li><code dir="auto">hostile-spawns</code>: hostile mobs don’t spawn <strong>naturally</strong> (also patrols and zombie reinforcements).
+Spawners, spawn eggs, commands and plugin spawns are not affected, so mob farms and custom-mob
+plugins keep working.</li>
+<li><code dir="auto">claim-fly</code>: nobody can use Claim Fly in the claim (owner included). Hidden while <code dir="auto">claim-fly.enabled</code> is
+<code dir="auto">false</code>.</li>
+<li><code dir="auto">pvp</code>: players can’t hurt each other while either of them is in the claim (melee, projectiles,
+harmful splash and lingering potions). It can only turn PvP <strong>off</strong>, never on where your world has
+PvP disabled. If you worry about players escaping fights into claims, use a combat plugin that stops
+tagged players entering claims, or remove <code dir="auto">pvp</code> here.</li>
+</ul>
+<p>Subclaims can follow their main claim (the default) or set an option themselves. A subclaim can
+turn PvP back on inside a PvP-off claim, but never on where the world itself has PvP disabled.</p>
+<p>Admins with <code dir="auto">claimora.admin.modify</code> can change options on any claim or subclaim (inspect →
+<strong>Options</strong>), and it’s logged. Admin claims’ options can only be changed by such admins.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="protection"><code dir="auto">protection</code></h3><a class="sl-anchor-link" href="#protection"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “protection”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">public-blocks</code></td>
+<td>crafting_table, ender_chest</td>
+<td>Blocks anyone may use inside claims</td>
+</tr>
+<tr>
+<td><code dir="auto">allow-villager-trading</code></td>
+<td>true</td>
+<td>Untrusted players may trade inside claims</td>
+</tr>
+<tr>
+<td><code dir="auto">block-explosions</code></td>
+<td>true</td>
+<td>Explosions don’t break blocks inside claims</td>
+</tr>
+<tr>
+<td><code dir="auto">block-fire-spread</code></td>
+<td>true</td>
+<td>Fire doesn’t spread or burn inside claims</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="sounds"><code dir="auto">sounds</code></h3><a class="sl-anchor-link" href="#sounds"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “sounds”</span></a></div>
+<p><code dir="auto">denied</code>, <code dir="auto">trust</code>, <code dir="auto">untrust</code>, <code dir="auto">banned</code>, <code dir="auto">teleport-tick</code>, <code dir="auto">teleport-arrive</code> and <code dir="auto">teleport-cancel</code>, each with
+<code dir="auto">sound</code> (a Minecraft sound id, or <code dir="auto">none</code>), <code dir="auto">volume</code> and <code dir="auto">pitch</code>.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="teleport"><code dir="auto">teleport</code></h3><a class="sl-anchor-link" href="#teleport"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “teleport”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">enabled</code></td>
+<td>true</td>
+<td>Allow <code dir="auto">/claim tp</code> and the Teleport buttons. Off: <code dir="auto">/claim tp</code> and <code dir="auto">/claim sethome</code> say it’s disabled, and the Teleport and <strong>Set home here</strong> buttons are hidden (a home only sets where <code dir="auto">/claim tp</code> lands); admin teleport and <code dir="auto">/claim trapped</code> still work.</td>
+</tr>
+<tr>
+<td><code dir="auto">warmup-seconds</code></td>
+<td>5</td>
+<td>Stand still this long (0 = instant). Moving or damage cancels.</td>
+</tr>
+<tr>
+<td><code dir="auto">cooldown-seconds</code></td>
+<td>30</td>
+<td>Time between teleports</td>
+</tr>
+<tr>
+<td><code dir="auto">trusted-can-teleport</code></td>
+<td>true</td>
+<td>Players may teleport to claims they’re trusted in</td>
+</tr>
+<tr>
+<td><code dir="auto">min-trust</code></td>
+<td>guest</td>
+<td>Lowest trust level that may teleport to a trusted claim</td>
+</tr>
+<tr>
+<td><code dir="auto">bar.length</code>, <code dir="auto">filled-char</code>, <code dir="auto">filled-color</code>, <code dir="auto">empty-char</code>, <code dir="auto">empty-color</code>, <code dir="auto">format</code></td>
+<td>dots</td>
+<td>The warm-up bar. <code dir="auto">format</code> placeholders: <code dir="auto">&#x3C;claim></code>, <code dir="auto">&#x3C;bar></code>, <code dir="auto">&#x3C;time></code>, <code dir="auto">&#x3C;seconds></code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="claim-ban"><code dir="auto">claim-ban</code></h3><a class="sl-anchor-link" href="#claim-ban"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “claim-ban”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">enabled</code></td>
+<td>true</td>
+<td>Claim bans on or off (see <a href="#claim-bans">Claim bans</a>)</td>
+</tr>
+<tr>
+<td><code dir="auto">max-per-claim</code></td>
+<td>50</td>
+<td>Most bans one claim can hold (1 to 500)</td>
+</tr>
+<tr>
+<td><code dir="auto">message-cooldown-seconds</code></td>
+<td>3</td>
+<td>Time between “You’re banned” messages while walking into the border</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="worldguard-expiry-admin"><code dir="auto">worldguard</code>, <code dir="auto">expiry</code>, <code dir="auto">admin</code></h3><a class="sl-anchor-link" href="#worldguard-expiry-admin"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “worldguard, expiry, admin”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">worldguard.block-claims-in-regions</code></td>
+<td>true</td>
+<td>See <a href="#worldguard">WorldGuard</a></td>
+</tr>
+<tr>
+<td><code dir="auto">expiry.inactive-days</code></td>
+<td>0</td>
+<td>See <a href="#inactive-claim-expiry">Inactive-claim expiry</a></td>
+</tr>
+<tr>
+<td><code dir="auto">expiry.exempt</code></td>
+<td>[]</td>
+<td>Names or UUIDs whose claims never expire</td>
+</tr>
+<tr>
+<td><code dir="auto">admin.log-days</code></td>
+<td>180</td>
+<td>Keep admin log entries this many days (0 = forever)</td>
+</tr>
+<tr>
+<td><code dir="auto">admin.recycle-days</code></td>
+<td>30</td>
+<td>Keep admin-deleted and expired claims restorable this many days (0 = no bin)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="messages">Messages</h2><a class="sl-anchor-link" href="#messages"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Messages”</span></a></div>
+<p>Every message is in <code dir="auto">messages.yml</code>, written in
+<a href="https://docs.advntr.dev/minimessage/format.html">MiniMessage</a> (<code dir="auto">&#x3C;red></code>, <code dir="auto">&#x3C;bold></code>,
+<code dir="auto">&#x3C;gradient:#55FFFF:#55FF55></code>…). Words in angle brackets that aren’t colours, like <code dir="auto">&#x3C;name></code> or
+<code dir="auto">&#x3C;id></code>, are placeholders filled in by the plugin. Keep them. Missing keys fall back to the defaults.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="bedrock-geyser-support">Bedrock (Geyser) support</h2><a class="sl-anchor-link" href="#bedrock-geyser-support"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Bedrock (Geyser) support”</span></a></div>
+<ul>
+<li>Bedrock players are detected through Floodgate or Geyser.</li>
+<li>Menus and the name box show as Bedrock forms. Light text colours are darkened automatically so
+they’re readable on the light form background.</li>
+<li>Borders: <code dir="auto">visuals.bedrock.borders: particles</code> (works everywhere) or <code dir="auto">displays</code> (the same 3D beams
+as Java; needs an add-on like Scaffolding).</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="bedrock-style-menus-claimora-bedrockmenus">Bedrock-style menus (Claimora-BedrockMenus)</h2><a class="sl-anchor-link" href="#bedrock-style-menus-claimora-bedrockmenus"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Bedrock-style menus (Claimora-BedrockMenus)”</span></a></div>
+<p>Optional. Claimora’s own menus work everywhere. For a Bedrock (Ore UI) look on Java, install two more jars. Both
+come in the add-on’s download (a zip with the two jars and short install steps):</p>
+<table>
+<thead>
+<tr>
+<th>Jar</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">Claimora-BedrockMenus-&#x3C;version>.jar</code></td>
+<td>The add-on with every Bedrock-style screen. Released together with Claimora; use the <strong>same version</strong> as your Claimora.</td>
+</tr>
+<tr>
+<td><code dir="auto">KoroUI-&#x3C;version>.jar</code></td>
+<td>The engine that draws the screens, included in the add-on’s download (it was called OracleUI before). If another plugin’s download also includes KoroUI, keep only the newest KoroUI jar.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Players need KoroUI’s resource pack. <strong>With Nexo</strong> (KoroUI 0.3.1 or newer) it’s added to Nexo’s pack automatically
+on every Nexo pack build; nothing to do. Without Nexo, add <code dir="auto">plugins/KoroUI/KoroUI-pack.zip</code> to your server’s
+resource pack. Players without the pack, and Bedrock players, keep the normal menus.</li>
+<li>What’s covered: the main menu (banner, blocks left, Get claim wand), Your claims and each claim’s page (info,
+Teleport, Set home here, Rename, option switches, Trusted players, Banned players, Subclaims, Transfer,
+Abandon), subclaims and their pages, the “Teleport to” chooser, Trusted players (add, levels, remove), Trusted
+claims, Buy blocks (step slider), Help, the claim ban screens, <code dir="auto">/claim options</code> and <code dir="auto">/claim tp</code> with several
+matches, and the “Name your claim” prompt after creating a claim.</li>
+<li><strong>Admin screens</strong> (since 0.9.6, needs <strong>KoroUI 0.3.2</strong> or newer): <code dir="auto">/claimadmin claims &#x3C;player></code> and <code dir="auto">claims server</code>,
+the admin claim page from <code dir="auto">/claimadmin inspect</code> (info with <strong>Teleport</strong>, Trusted players, Subclaims, Rename, the
+option switches, Admin log, the owner’s claims, then Resize, Transfer and red Delete; a yellow <strong>ADMIN</strong> tag in
+the header), Transfer with its confirm page, the delete confirm, the recycle bin (<code dir="auto">/claimadmin restore</code>, tap a
+claim to get a restore confirm) and the admin log. Every button checks the admin permission again when it’s
+clicked (<code dir="auto">claimora.admin.view</code>, <code dir="auto">modify</code>, <code dir="auto">teleport</code>, <code dir="auto">delete</code>), so a menu opened before a demotion can’t be used
+afterwards. With an older KoroUI, Bedrock admins, or admins without the pack, the normal admin menus open.</li>
+<li><strong>Long lists get a pager</strong> at the bottom (<code dir="auto">&#x3C; Previous</code>, “Page 1 of 2”, <code dir="auto">Next ></code>): 20 rows per page for players,
+24 for claims and recycle-bin entries, 12 for subclaims, 20 for admin-log entries. Each click rebuilds the page
+from live data. (Before 0.9.6 long lists fell back to the normal menus.)</li>
+<li>Texts are the <code dir="auto">ore-*</code> keys in Claimora’s <code dir="auto">messages.yml</code> (plain text; the theme sets colours and fonts).</li>
+<li>If KoroUI or the license key is missing, or the add-on’s version doesn’t match Claimora’s, the add-on says so in the console and
+switches itself off; Claimora keeps its normal menus. Removing either jar does the same. Nothing is stored per
+player, and <code dir="auto">/claimadmin memory</code> shows whether a menu add-on is installed.</li>
+<li>Option switches save straight away; repeated clicks on the same claim are merged into one database write, and
+KoroUI ignores clicks closer than 150 ms apart.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="license-key">License key</h3><a class="sl-anchor-link" href="#license-key"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “License key”</span></a></div>
+<p>Claimora-BedrockMenus is a paid add-on and needs a license key. You get your key in your purchase ticket on our
+Discord; it looks like <code dir="auto">KORO-XXXX-XXXX-XXXX-XXXX</code>.</p>
+<ol>
+<li>Start the server once with the add-on installed. It creates <code dir="auto">plugins/Claimora-BedrockMenus/config.yml</code>.</li>
+<li>Paste your key there: <code dir="auto">license-key: "KORO-XXXX-XXXX-XXXX-XXXX"</code>.</li>
+<li>Restart. The console says <code dir="auto">License OK: Bedrock-style menus are on.</code></li>
+</ol>
+<p>How the check works:</p>
+<ul>
+<li>It runs in the background, once at startup and then about once a day. The server never waits for it.</li>
+<li>After the first successful check, restarts unlock the menus straight away from the saved result
+(<code dir="auto">plugins/Claimora-BedrockMenus/license.dat</code>).</li>
+<li>If the license server can’t be reached (your host blocks it, or it’s down), the menus stay on for up to
+<strong>10 days</strong> after the last successful check, and the console says until when. After that they switch to the
+normal menus until a check works again; this happens by itself, no restart needed.</li>
+<li>Without a valid key, only the Bedrock-style menus are off: Claimora keeps working with its normal menus.
+Claims, trust, data and other plugins are never touched.</li>
+</ul>
+<p><strong>Server IPs (whitelist):</strong> each key works on up to <strong>3 server IPs</strong> (servers on the same machine share one IP).
+The <strong>first server that uses a new key is whitelisted automatically</strong>; the console says
+<code dir="auto">This server's IP … was whitelisted for your key (1 of 3)</code>. To add or remove servers, use <strong><code dir="auto">/mylicenses</code></strong> in the
+Koro Labs Discord (➕ Add IP / ➖ Remove IP), or the 🖥️ Manage servers button under your key in your ticket. You can
+change a key’s IPs 3 times per 24 hours. A server whose IP isn’t on the list switches to the normal menus and the
+console names the exact IP to add; after you add it, the add-on picks it up within an hour, or at once after a
+restart. Forgot your key? <code dir="auto">/mylicenses</code> shows it (only to you).</p>
+<p><strong>What is sent:</strong> only your key, a random id for this server (made on first start; it says nothing about your
+machine), a one-time random number and the add-on version, over HTTPS to <code dir="auto">license.oraclecraft.xyz</code>. Like any
+website, the license server sees the IP your server connects from; it stores only the IPs on your key’s whitelist.
+No player data, no hardware details, no server files. Don’t copy <code dir="auto">license.dat</code> between servers.</p>
+<table>
+<thead>
+<tr>
+<th>Console message</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">No license key set in …config.yml</code></td>
+<td>Paste your key into <code dir="auto">license-key</code> and restart.</td>
+</tr>
+<tr>
+<td><code dir="auto">license-key … doesn't look like a key</code></td>
+<td>Copy the key again exactly (including <code dir="auto">KORO-</code>) and restart.</td>
+</tr>
+<tr>
+<td><code dir="auto">This license key doesn't exist</code></td>
+<td>Check for typos (<code dir="auto">/mylicenses</code> shows your key); if it still fails, ask in your ticket.</td>
+</tr>
+<tr>
+<td><code dir="auto">This server's IP … isn't whitelisted for your license key</code></td>
+<td>Add that IP with <code dir="auto">/mylicenses</code> (or remove an old one first if all 3 are used).</td>
+</tr>
+<tr>
+<td><code dir="auto">This license key was revoked</code> / <code dir="auto">has expired</code></td>
+<td>Contact us in your ticket.</td>
+</tr>
+<tr>
+<td><code dir="auto">Couldn't check the license (…)</code></td>
+<td>Nothing yet: the menus stay on while the last check is valid. If it lasts, check that your host allows outgoing HTTPS to <code dir="auto">license.oraclecraft.xyz</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Updating from Claimora 0.8.x with OracleUI:</strong> the Bedrock-style screens moved out of <code dir="auto">Claimora.jar</code> into
+<code dir="auto">Claimora-BedrockMenus.jar</code>, and OracleUI is now KoroUI. Replace <code dir="auto">OracleUI.jar</code> with <code dir="auto">KoroUI.jar</code> (settings move
+over by themselves) and add <code dir="auto">Claimora-BedrockMenus.jar</code>. Without the add-on, Claimora 0.9.0 shows normal menus only.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="normal-menu-additions-082">Normal menu additions (0.8.2)</h2><a class="sl-anchor-link" href="#normal-menu-additions-082"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Normal menu additions (0.8.2)”</span></a></div>
+<ul>
+<li>The normal <code dir="auto">/claim menu</code> has a <strong>Get claim wand</strong> button (<code dir="auto">menu-main-wand</code>), same as <code dir="auto">/claim wand</code>.</li>
+<li>The normal Buy screen has Minecraft’s own slider for any amount between <code dir="auto">buy.min-amount</code> and what the
+player may still buy (<code dir="auto">buy-slider-label</code>, <code dir="auto">buy-slider-button</code>), followed by the <code dir="auto">presets</code> buttons and the
+usual confirm step. Bedrock players see it as a form slider through Geyser.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="worldguard">WorldGuard</h2><a class="sl-anchor-link" href="#worldguard"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “WorldGuard”</span></a></div>
+<p>With WorldGuard installed and <code dir="auto">worldguard.block-claims-in-regions: true</code>, players can’t claim land
+that overlaps a WorldGuard region. To allow claiming in a region:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">/rg flag &#x3C;region> claimora-claim allow</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/rg flag <region> claimora-claim allow"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h2"><h2 id="placeholderapi">PlaceholderAPI</h2><a class="sl-anchor-link" href="#placeholderapi"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “PlaceholderAPI”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Placeholder</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">%claimora_blocks_available%</code></td>
+<td>Claim blocks the player can still spend</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_blocks_total%</code></td>
+<td>Total claim blocks</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_blocks_used%</code></td>
+<td>Blocks used by their claims</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_claims%</code></td>
+<td>Number of claims they own</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_claim_name%</code></td>
+<td>Name of the claim they’re standing in (“Wilderness” outside)</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_claim_owner%</code></td>
+<td>Owner of the claim they’re standing in</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_can_build%</code></td>
+<td>Whether they can build where they stand</td>
+</tr>
+<tr>
+<td><code dir="auto">%claimora_fly_remaining%</code></td>
+<td>Claim Fly time left today (<code dir="auto">42:17</code>, <code dir="auto">unlimited</code>, or empty without a tier)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="inactive-claim-expiry">Inactive-claim expiry</h2><a class="sl-anchor-link" href="#inactive-claim-expiry"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Inactive-claim expiry”</span></a></div>
+<p>Off by default. Set <code dir="auto">expiry.inactive-days</code> to, for example, <code dir="auto">60</code>, and once a day Claimora deletes
+the claims of players who haven’t joined for that long. Players in <code dir="auto">expiry.exempt</code> are skipped,
+and every removal is printed to the console. Expired claims go to the
+<a href="#recycle-bin-and-restoring-claims">recycle bin</a>, so you can restore them for 30 days.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="moving-from-griefprevention">Moving from GriefPrevention</h2><a class="sl-anchor-link" href="#moving-from-griefprevention"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Moving from GriefPrevention”</span></a></div>
+<p>Claimora can copy GriefPrevention’s claims, trust and claim blocks. It reads GP’s default file storage
+(<code dir="auto">plugins/GriefPreventionData/ClaimData/*.yml</code> and <code dir="auto">PlayerData/</code>) and never changes those files.
+GriefPrevention doesn’t need to be running; the folder just has to be there. GP stored in MySQL isn’t
+supported. Add-ons such as GriefPrevention GUI keep the claims in GP’s files, so they’re covered; the
+add-on’s own extras (icons, flags) aren’t imported.</p>
+<ol>
+<li>Install Claimora next to the <code dir="auto">GriefPreventionData</code> folder (you can keep or remove GP; remove it
+before players join so the two don’t both protect the same land).</li>
+<li>Run <code dir="auto">/claimadmin import griefprevention</code> (console recommended). You get a <strong>preview</strong>: how many
+claims, subclaims, admin claims and players would be imported, and what would be skipped.
+Nothing changes yet.</li>
+<li>Within 60 seconds run <code dir="auto">/claimadmin import griefprevention confirm</code>. Claimora first backs up its
+database to <code dir="auto">claimora-before-gp-import-&#x3C;date>.db</code>, then imports in small batches per tick so the
+server doesn’t freeze, and prints a summary.</li>
+</ol>
+<p><strong>What maps to what:</strong></p>
+<table>
+<thead>
+<tr>
+<th>GriefPrevention</th>
+<th>Claimora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-level claim</td>
+<td>Main claim (full height; GP’s depth is dropped), named “Claim 1, 2…” per owner</td>
+</tr>
+<tr>
+<td>Subdivision</td>
+<td>Subclaim (nested ones from 3D forks are flattened into the top-level claim)</td>
+</tr>
+<tr>
+<td>Admin claim</td>
+<td>Admin claim</td>
+</tr>
+<tr>
+<td>Accessors / Containers / Builders / Managers</td>
+<td>Guest / Containers / Build / Manager (highest wins)</td>
+</tr>
+<tr>
+<td><code dir="auto">public</code> trust</td>
+<td>Not copied (counted in the preview)</td>
+</tr>
+<tr>
+<td>Accrued / bonus claim blocks</td>
+<td>Earned blocks / admin bonus (only raised, never lowered)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skipped and reported:</strong> claims overlapping an existing Claimora claim, claims in worlds that aren’t
+loaded, unreadable files, and subclaims that don’t fit inside their claim or overlap another one.
+Running the import again is safe: everything already imported overlaps itself and is skipped, and
+claim blocks are only raised. Requires <code dir="auto">claimora.admin</code>; logged in the admin log.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="usage-statistics-bstats">Usage statistics (bStats)</h2><a class="sl-anchor-link" href="#usage-statistics-bstats"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Usage statistics (bStats)”</span></a></div>
+<p>Since 0.9.7 Claimora sends anonymous usage statistics to <a href="https://bstats.org/plugin/bukkit/Claimora/35703">bStats</a>,
+like most public plugins: the number of servers and players, server software and version, Java version, country,
+and whether the Bedrock-style menus add-on is installed. No player names, UUIDs or claim data. The charts are
+public; what bStats collects and keeps is described at bstats.org.</p>
+<ul>
+<li>Turn it off for Claimora only: <code dir="auto">metrics: false</code> in <code dir="auto">config.yml</code>, then restart.</li>
+<li>Turn it off for every plugin: <code dir="auto">enabled: false</code> in <code dir="auto">plugins/bStats/config.yml</code>.</li>
+</ul>
+<p>It sends a small report about every 30 minutes in the background; the server never waits for it.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="update-checker">Update checker</h2><a class="sl-anchor-link" href="#update-checker"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Update checker”</span></a></div>
+<p>Since 0.9.7 Claimora asks <a href="https://modrinth.com/plugin/claimora">Modrinth</a> at startup and then once a day whether a
+newer release is out. If there is one, the console says so once, and players with <code dir="auto">claimora.admin.updates</code> (ops by
+default) get a chat line with the download link when they join. Nothing is downloaded or installed by itself.</p>
+<ul>
+<li>The request only names Claimora and its version (Modrinth asks every program to say who it is). Nothing about
+your server or players is sent.</li>
+<li>It runs in the background; if Modrinth can’t be reached, nothing happens and Claimora works the same.</li>
+<li>Turn it off with <code dir="auto">update-checker: false</code> in <code dir="auto">config.yml</code>, then restart.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="data-and-backups">Data and backups</h2><a class="sl-anchor-link" href="#data-and-backups"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Data and backups”</span></a></div>
+<p>Everything is in <code dir="auto">plugins/Claimora/claimora.db</code> (SQLite). Back it up with the server stopped, or
+copy <code dir="auto">claimora.db</code>, <code dir="auto">claimora.db-wal</code> and <code dir="auto">claimora.db-shm</code> together. Saving happens on a
+background thread, so the server never waits on the database.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="performance-and-memory">Performance and memory</h2><a class="sl-anchor-link" href="#performance-and-memory"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Performance and memory”</span></a></div>
+<ul>
+<li>Claims are kept in memory, grouped by chunk, so checking a block only looks at the claims in that
+chunk.</li>
+<li>Claim block balances are only kept for online players.</li>
+<li>Claimora runs just two repeating tasks: the wand (every 2 ticks, and only for players holding it)
+and a 5-minute task for playtime blocks, cleanup and the daily checks.</li>
+<li>Borders are packets, not entities.</li>
+</ul>
+<p><code dir="auto">/claimadmin memory</code> lists everything Claimora keeps in memory. After players leave, the per-player
+numbers should drop back to about the number of players online. If something keeps growing, please
+report it with that output.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="troubleshooting">Troubleshooting</h2><a class="sl-anchor-link" href="#troubleshooting"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Troubleshooting”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claimora doesn’t enable</td>
+<td>Install PacketEvents 2.14.0+ and check you’re on Paper 26.1.2 to 26.3 with Java 25</td>
+</tr>
+<tr>
+<td>No borders on Bedrock</td>
+<td>Use <code dir="auto">bedrock.borders: particles</code>, or install Scaffolding for <code dir="auto">displays</code></td>
+</tr>
+<tr>
+<td>Bedrock menu text hard to read</td>
+<td>Update Claimora (0.3.6+ darkens colours automatically)</td>
+</tr>
+<tr>
+<td>Players can’t claim in a region</td>
+<td>Set the <code dir="auto">claimora-claim</code> flag, or turn off <code dir="auto">worldguard.block-claims-in-regions</code></td>
+</tr>
+<tr>
+<td>Changed config doesn’t apply</td>
+<td>Run <code dir="auto">/claimadmin reload</code></td>
+</tr>
+<tr>
+<td>“Could not open the Claimora database”</td>
+<td>The database file is locked or damaged: stop the server and restore a backup</td>
+</tr>
+</tbody>
+</table> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr"> <a href="/Claimora-docs/players/" rel="prev" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg> <span class="astro-u2l5gyhi"> Previous <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Player guide</span> </span> </a> <a href="/Claimora-docs/developers/" rel="next" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg> <span class="astro-u2l5gyhi"> Next <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Developer API</span> </span> </a> </div>  </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>
